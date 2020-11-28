@@ -113,6 +113,7 @@ public class RiskLevelCrawler extends Crawler {
                 Thread.sleep(500);
                 cities = driver.findElements(By.xpath("//ul[@class='city']/li"));
                 for (jj = j; jj < cities.size(); jj++) {
+                    j = 0;
                     if (ii == 18 && jj == 18) {
                         continue;
                     }
