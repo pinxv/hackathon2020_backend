@@ -42,4 +42,8 @@ public class GeographicalPositionUtil {
         return new PositionInfoVO(locationName, longitude, latitude, adCode);
     }
 
+    public static void main(String[] args) {
+        System.out.println(getPositionInfo("天津天津市滨海新区东疆港区瞰海轩小区"));
+    }
+
 }
