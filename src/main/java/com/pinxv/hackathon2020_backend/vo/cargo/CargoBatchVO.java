@@ -18,4 +18,6 @@ public class CargoBatchVO {
 
     private Boolean isSafe;
 
+    private String destination;
+
 }
