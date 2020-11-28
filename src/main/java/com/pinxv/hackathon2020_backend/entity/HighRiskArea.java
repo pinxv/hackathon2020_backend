@@ -11,12 +11,15 @@ import lombok.Data;
 import java.io.Serializable;
 import javax.persistence.Id;
 
+/**
+ * @author fengguohao
+ */
 @Entity
 @Table(schema = "pinxv", name = "HighRiskArea")
 @Data
 public class HighRiskArea implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -5356361748549462183L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
