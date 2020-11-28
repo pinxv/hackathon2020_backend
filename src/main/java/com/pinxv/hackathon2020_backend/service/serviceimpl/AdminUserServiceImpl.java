@@ -84,7 +84,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public ResponseVO changeCargoBatchInfo(ChangeCargoInfoVO changeCargoInfoVO) {
+    public ResponseVO changeCargoBatchInfoConfirm(ChangeCargoInfoVO changeCargoInfoVO) {
         ChangeCargoInfo changeCargoInfo = new ChangeCargoInfo();
         BeanUtils.copyProperties(changeCargoInfoVO, changeCargoInfo);
         this.changeCargoInfoMapper.save(changeCargoInfo);

@@ -35,9 +35,9 @@ public class AdminUserController {
 
 
 
-    @PostMapping("/changeCargoBatchInfo")
-    public ResponseVO changeCargoBatchInfo(@RequestBody ChangeCargoInfoVO changeCargoInfoVO) {
-        return this.adminUserService.changeCargoBatchInfo(changeCargoInfoVO);
+    @PostMapping("/changeCargoBatchInfoConfirm")
+    public ResponseVO changeCargoBatchInfoConfirm(@RequestBody ChangeCargoInfoVO changeCargoInfoVO) {
+        return this.adminUserService.changeCargoBatchInfoConfirm(changeCargoInfoVO);
     }
 
 }
