@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ChangeCargoInfo", schema = "pinxv")
-public class ChangeCargoInfo implements Comparable<ChangeCargoInfo>{
+public class ChangeCargoInfo implements Comparable<ChangeCargoInfo> {
     private int id;
     private String place;
     private Integer sum;
@@ -123,6 +123,6 @@ public class ChangeCargoInfo implements Comparable<ChangeCargoInfo>{
 
     @Override
     public int compareTo(ChangeCargoInfo o) {
-        return (int)(this.timestamp.getTime()-o.timestamp.getTime());
+        return (int) (this.timestamp.getTime() - o.timestamp.getTime());
     }
 }

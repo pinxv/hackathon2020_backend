@@ -8,12 +8,12 @@ public enum StatusCode {
     /**
      * success state
      */
-    SUCCESS(200,"success"),
+    SUCCESS(200, "success"),
 
     /**
      * failure state
      */
-    FAILURE(-1,"failure");
+    FAILURE(-1, "failure");
 
     int code;
     String message;

@@ -161,9 +161,9 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public ResponseVO getCountInfo() {
-        Integer batchNum = (int)cargoBatchMapper.count();
+        Integer batchNum = (int) cargoBatchMapper.count();
         Integer unsafeNum = cargoBatchMapper.countByIsSafeEquals(false);
-        Integer safeNum = batchNum-unsafeNum;
+        Integer safeNum = batchNum - unsafeNum;
         CountInfoVO countInfoVO = new CountInfoVO();
         countInfoVO.setBatchNum(batchNum);
         countInfoVO.setUnsafeNum(unsafeNum);
@@ -175,9 +175,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     public ResponseVO getHistory(String username) {
         List<CargoBatch> cargoBatchList = cargoBatchMapper.findByCreator(username);
         List<CargoBatchVO> cargoBatchVOList = new ArrayList<>();
-        for(CargoBatch cargoBatch:cargoBatchList){
+        for (CargoBatch cargoBatch : cargoBatchList) {
             CargoBatchVO cargoBatchVO = new CargoBatchVO();
-            BeanUtils.copyProperties(cargoBatch,cargoBatchVO);
+            BeanUtils.copyProperties(cargoBatch, cargoBatchVO);
             cargoBatchVOList.add(cargoBatchVO);
         }
         return ResponseVO.buildSuccess(cargoBatchVOList);

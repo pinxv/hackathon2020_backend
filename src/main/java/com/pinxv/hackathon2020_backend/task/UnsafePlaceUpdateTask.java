@@ -43,23 +43,23 @@ public class UnsafePlaceUpdateTask {
     Double maxDistanceBetween = 200.0;
 
     @Scheduled(cron = "0 0 0/1 * * ? ")
-    public void updateUnsafePlace(){
+    public void updateUnsafePlace() {
         unsafeCargoBatchMapper.deleteAll();
         List<ChangeCargoInfo> changeCargoInfoList = changeCargoInfoMapper.findAll();
-        for(ChangeCargoInfo changeCargoInfo :changeCargoInfoList){
+        for (ChangeCargoInfo changeCargoInfo : changeCargoInfoList) {
             updateUnsafePlace(changeCargoInfo);
         }
     }
 
-    public void updateUnsafePlace(ChangeCargoInfo changeCargoInfo){
+    public void updateUnsafePlace(ChangeCargoInfo changeCargoInfo) {
         Date now = DateUtil.parse(DateUtil.now());
         List<HighRiskArea> highRiskAreaList = highRiskAreaMapper.findAll();
-        for(HighRiskArea highRiskArea:highRiskAreaList){
+        for (HighRiskArea highRiskArea : highRiskAreaList) {
             Date cargoDate = DateUtil.parse(changeCargoInfo.getTimestamp().toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-            long timeBetween = DateUtil.between(cargoDate,now, DateUnit.HOUR);
-            if(timeBetween<maxHourBetween){
-                double distanceBetween = GeographicalPositionUtil.getDistance(highRiskArea.getArea(),changeCargoInfo.getPlace());
-                if(distanceBetween<maxDistanceBetween){
+            long timeBetween = DateUtil.between(cargoDate, now, DateUnit.HOUR);
+            if (timeBetween < maxHourBetween) {
+                double distanceBetween = GeographicalPositionUtil.getDistance(highRiskArea.getArea(), changeCargoInfo.getPlace());
+                if (distanceBetween < maxDistanceBetween) {
                     UnsafeCargoBatch unsafeCargoBatch = new UnsafeCargoBatch();
                     unsafeCargoBatch.setBatchNum(changeCargoInfo.getBatchNumber());
                     unsafeCargoBatch.setHighRiskAreaId(highRiskArea.getId());
@@ -68,10 +68,9 @@ public class UnsafePlaceUpdateTask {
                     unsafeCargoBatch.setHighRiskPlace(highRiskArea.getArea());
                     unsafeCargoBatchMapper.save(unsafeCargoBatch);
                     List<CargoBatch> cargoBatchList = cargoBatchMapper.findByBatchNumber(changeCargoInfo.getBatchNumber());
-                    if (cargoBatchList.isEmpty()){
+                    if (cargoBatchList.isEmpty()) {
                         return;
-                    }
-                    else{
+                    } else {
                         CargoBatch cargoBatch = cargoBatchList.get(0);
                         cargoBatch.setIsSafe(false);
                         cargoBatchMapper.save(cargoBatch);
