@@ -2,6 +2,8 @@ package com.pinxv.hackathon2020_backend.vo.cargo;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 /**
  * @author njuselhx
  */
@@ -19,5 +21,7 @@ public class ChangeCargoInfoVO {
     private String destination;
 
     private String creator;
+
+    private Timestamp timestamp;
 
 }

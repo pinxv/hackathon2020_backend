@@ -15,7 +15,7 @@ public class CargoChangeDetailsVO {
     String description;
     List<ChangeCargoPlaceVO> placeList;
 
-    public CargoChangeDetailsVO(String UUID,String description,List<ChangeCargoPlaceVO> placeList){
+    public CargoChangeDetailsVO(String UUID, String description, List<ChangeCargoPlaceVO> placeList) {
         this.UUID = UUID;
         this.description = description;
         this.placeList = placeList;
