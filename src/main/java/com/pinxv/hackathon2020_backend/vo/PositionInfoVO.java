@@ -22,11 +22,16 @@ public class PositionInfoVO {
     /**
      * 经度
      */
-    private float longitude;
+    private Float longitude;
 
     /**
      * 纬度
      */
-    private float latitude;
+    private Float latitude;
+
+    /**
+     * 地理位置编码
+     */
+    private String adcode;
 
 }
