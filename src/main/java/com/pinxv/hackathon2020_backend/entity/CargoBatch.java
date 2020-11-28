@@ -12,7 +12,7 @@ public class CargoBatch {
     private int id;
     private String batchNumber;
     private String description;
-    private int sum;
+    private Integer sum;
     private String creator;
 
     @Id
@@ -47,11 +47,11 @@ public class CargoBatch {
 
     @Basic
     @Column(name = "sum")
-    public int getSum() {
+    public Integer getSum() {
         return sum;
     }
 
-    public void setSum(int sum) {
+    public void setSum(Integer sum) {
         this.sum = sum;
     }
 
@@ -75,7 +75,7 @@ public class CargoBatch {
         }
         CargoBatch that = (CargoBatch) o;
         return id == that.id &&
-                sum == that.sum &&
+                sum.equals(that.sum) &&
                 Objects.equals(batchNumber, that.batchNumber) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(creator, that.creator);

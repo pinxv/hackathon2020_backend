@@ -12,5 +12,9 @@ import java.util.List;
  */
 
 public interface AdminUserMapper extends CrudRepository<AdminUser, Integer> {
-    public List<AdminUser> findAllByUsername(String username);
+
+    List<AdminUser> findAllByUsername(String username);
+
+    List<AdminUser> findByUsernameAndPassword(String username, String password);
+
 }
