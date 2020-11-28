@@ -57,7 +57,7 @@ maven环境
 
 ## 搭建步骤
 
-1、使用```git clone https://github.com/pinxv/hackathon2020_backend.git```命令将项目clone到本地
+1、使用 ```git clone https://github.com/pinxv/hackathon2020_backend.git``` 命令将项目clone到本地
 
 2、在数据库内执行根目录下的.sql脚本
 
