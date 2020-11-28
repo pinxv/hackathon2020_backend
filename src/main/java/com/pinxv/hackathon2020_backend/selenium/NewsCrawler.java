@@ -16,7 +16,7 @@ import java.util.List;
 public class NewsCrawler extends Crawler{
     private static String urlbase = "https://www.baidu.com/s?tn=news&word=";
 
-    public List<NewsVO> crawl(String keyword){
+    public static List<NewsVO> crawl(String keyword){
         List<NewsVO> newsVOS = new ArrayList<>();
         String realURL = urlbase+URLUtil.encode(keyword);
         DRIVER.get(realURL);
