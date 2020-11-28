@@ -4,12 +4,14 @@ import com.pinxv.hackathon2020_backend.dao.AdminUserMapper;
 import com.pinxv.hackathon2020_backend.dao.CargoBatchMapper;
 import com.pinxv.hackathon2020_backend.entity.AdminUser;
 import com.pinxv.hackathon2020_backend.entity.CargoBatch;
-import com.pinxv.hackathon2020_backend.enums.StatusCode;
+import com.pinxv.hackathon2020_backend.entity.ChangeCargoInfo;
 import com.pinxv.hackathon2020_backend.service.AdminUserService;
 import com.pinxv.hackathon2020_backend.vo.ResponseVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.LoginUserVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.UserVO;
 import com.pinxv.hackathon2020_backend.vo.cargo.CargoBatchVO;
+import com.pinxv.hackathon2020_backend.vo.cargo.CargoVO;
+import com.pinxv.hackathon2020_backend.vo.cargo.ChangeCargoInfoVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,12 +52,19 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public ResponseVO importCargoBatch(CargoBatchVO cargoBatchVO) {
-        CargoBatch cargoBatch = new CargoBatch();
-        BeanUtils.copyProperties(cargoBatchVO, cargoBatch);
-        this.cargoBatchMapper.save(cargoBatch);
+    public ResponseVO importCargoBatch(ChangeCargoInfoVO changeCargoInfoVO) {
         // TODO return a base64 code and save
         return ResponseVO.buildSuccess();
+    }
+
+    @Override
+    public ResponseVO changeCargoBatchInfo(ChangeCargoInfoVO changeCargoInfoVO) {
+        return null;
+    }
+
+    @Override
+    public ResponseVO distributeCargo(ChangeCargoInfoVO changeCargoInfoVO) {
+        return null;
     }
 
 }
