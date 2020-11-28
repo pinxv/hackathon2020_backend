@@ -12,13 +12,14 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class CORSConfig {
 
-    private static String[] originsVal = new String[]{
-            "localhost:8000",
-            "127.0.0.1:8000",
-    };
+    private static String[] originsVal = new String[2000];
 
     @Bean
     public CorsFilter corsFilter() {
+        for (int i = 0; i < 2000; i += 2) {
+            originsVal[i] = "localhost:" + (i / 2 + 8000);
+            originsVal[i + 1] = "127.0.0.1:" + (i / 2 + 8000);
+        }
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         addAllowedOrigins(corsConfiguration);
