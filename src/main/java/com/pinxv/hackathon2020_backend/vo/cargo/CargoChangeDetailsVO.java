@@ -13,6 +13,7 @@ import java.util.List;
 public class CargoChangeDetailsVO {
     String UUID;
     String description;
+    Integer num;
     List<ChangeCargoPlaceVO> placeList;
     List<UnsafeInfoVO> unsafeInfoVOList;
 

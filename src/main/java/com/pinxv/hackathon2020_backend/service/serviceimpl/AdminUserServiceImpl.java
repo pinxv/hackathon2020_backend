@@ -119,6 +119,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (UUID == null) {
             return ResponseVO.buildFailure("查询失败，请检查UUID是否存在");
         }
+        List<CargoBatch> cargoBatchList = cargoBatchMapper.findByBatchNumber(UUID);
         List<ChangeCargoInfo> changeCargoInfoList = changeCargoInfoMapper.findAllByBatchNumber(UUID);
         if (changeCargoInfoList.isEmpty()) {
             return ResponseVO.buildFailure("查询失败，没有匹配的UUID，请确认二维码清晰有效");
@@ -138,6 +139,7 @@ public class AdminUserServiceImpl implements AdminUserService {
                 unsafeInfoVOList.add(unsafeInfoVO);
             }
             CargoChangeDetailsVO cargoChangeDetailsVO = new CargoChangeDetailsVO(UUID, description, changeCargoPlaceVOList,unsafeInfoVOList);
+            cargoChangeDetailsVO.setNum(cargoBatchList.get(0).getSum());
             return ResponseVO.buildSuccess(cargoChangeDetailsVO);
         }
     }
@@ -167,6 +169,7 @@ public class AdminUserServiceImpl implements AdminUserService {
                     unsafeInfoVOList.add(unsafeInfoVO);
                 }
                 CargoChangeDetailsVO cargoChangeDetailsVO = new CargoChangeDetailsVO(UUID, description, changeCargoPlaceVOList,unsafeInfoVOList);
+                cargoChangeDetailsVO.setNum(cargoBatchList.get(0).getSum());
                 return ResponseVO.buildSuccess(cargoChangeDetailsVO);
             }
         }
