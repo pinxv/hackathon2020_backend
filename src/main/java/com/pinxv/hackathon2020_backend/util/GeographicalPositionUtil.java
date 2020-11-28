@@ -29,8 +29,8 @@ public class GeographicalPositionUtil {
 
             //处理返回数据
             JSONArray array = JSONUtil.parseObj(locationInfo).getJSONArray("geocodes");
-            JSONObject qureydInfoObj = array.getJSONObject(0);
-            String[] loc = qureydInfoObj.getStr("location").split(",");
+            JSONObject queryInfoObj = array.getJSONObject(0);
+            String[] loc = queryInfoObj.getStr("location").split(",");
             longitude = Float.parseFloat(loc[0]);
             latitude = Float.parseFloat(loc[1]);
         }
