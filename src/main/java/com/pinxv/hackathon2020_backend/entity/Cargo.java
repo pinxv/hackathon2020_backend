@@ -13,6 +13,7 @@ public class Cargo {
     private String serialNumber;
     private String description;
     private String creator;
+    private String destination;
 
     @Id
     @Column(name = "id")
@@ -54,6 +55,16 @@ public class Cargo {
         this.creator = creator;
     }
 
+    @Basic
+    @Column(name = "destination")
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -66,11 +77,13 @@ public class Cargo {
         return id == that.id &&
                 Objects.equals(serialNumber, that.serialNumber) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(creator, that.creator);
+                Objects.equals(creator, that.creator) &&
+                Objects.equals(destination, that.destination);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, serialNumber, description, creator);
+        return Objects.hash(id, serialNumber, description, creator, destination);
     }
+
 }

@@ -14,4 +14,6 @@ public class CargoVO {
 
     private String creator;
 
+    private String destination;
+
 }

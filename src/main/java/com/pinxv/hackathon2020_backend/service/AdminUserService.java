@@ -3,6 +3,8 @@ package com.pinxv.hackathon2020_backend.service;
 import com.pinxv.hackathon2020_backend.vo.ResponseVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.LoginUserVO;
 import com.pinxv.hackathon2020_backend.vo.cargo.CargoBatchVO;
+import com.pinxv.hackathon2020_backend.vo.cargo.CargoVO;
+import com.pinxv.hackathon2020_backend.vo.cargo.ChangeCargoInfoVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +16,10 @@ public interface AdminUserService {
 
     ResponseVO login(LoginUserVO loginUserVO);
 
-    ResponseVO importCargoBatch(CargoBatchVO cargoBatchVO);
+    ResponseVO importCargoBatch(ChangeCargoInfoVO changeCargoInfoVO);
+
+    ResponseVO changeCargoBatchInfo(ChangeCargoInfoVO changeCargoInfoVO);
+
+    ResponseVO distributeCargo(ChangeCargoInfoVO changeCargoInfoVO);
 
 }
