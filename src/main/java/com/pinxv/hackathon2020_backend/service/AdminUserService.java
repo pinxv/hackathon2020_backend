@@ -2,6 +2,7 @@ package com.pinxv.hackathon2020_backend.service;
 
 import com.pinxv.hackathon2020_backend.vo.ResponseVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.LoginUserVO;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>description: </p>
