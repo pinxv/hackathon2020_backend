@@ -17,7 +17,7 @@ public class ChangeCargoPlaceVO {
     Float longitude;
     Float latitude;
 
-    public ChangeCargoPlaceVO(ChangeCargoInfo changeCargoInfo){
+    public ChangeCargoPlaceVO(ChangeCargoInfo changeCargoInfo) {
         this.place = changeCargoInfo.getPlace();
         this.time = DateUtil.date(changeCargoInfo.getTimestamp().getTime()).toString("yyyy-MM-dd HH:mm:ss");
         PositionInfoVO positionInfoVO = GeographicalPositionUtil.getPositionInfo(changeCargoInfo.getPlace());

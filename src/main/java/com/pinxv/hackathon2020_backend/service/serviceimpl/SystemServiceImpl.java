@@ -35,11 +35,11 @@ public class SystemServiceImpl implements SystemService {
         List<HighRiskArea> medium = highRiskAreaMapper.findByRiskLevel(RiskLevelCode.MEDIUM.getCode());
         List<HighRiskArea> high = highRiskAreaMapper.findByRiskLevel(RiskLevelCode.HIGH.getCode());
         List<HighRiskLevelVO> levelVOS = new ArrayList<>();
-        for(HighRiskArea area: medium){
+        for (HighRiskArea area : medium) {
             HighRiskLevelVO levelVO = new HighRiskLevelVO(area);
             levelVOS.add(levelVO);
         }
-        for(HighRiskArea area: high){
+        for (HighRiskArea area : high) {
             HighRiskLevelVO levelVO = new HighRiskLevelVO(area);
             levelVOS.add(levelVO);
         }

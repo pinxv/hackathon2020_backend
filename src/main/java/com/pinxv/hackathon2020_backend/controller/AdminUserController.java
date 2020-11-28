@@ -32,7 +32,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/getDetails")
-    public ResponseVO getDetails(@RequestBody UUIDPicVO uuidPicVO){
+    public ResponseVO getDetails(@RequestBody UUIDPicVO uuidPicVO) {
         return this.adminUserService.getDetails(uuidPicVO);
     }
 
@@ -42,7 +42,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/getUUID")
-    public ResponseVO getUUID(@RequestBody UUIDPicVO uuidPicVO){
+    public ResponseVO getUUID(@RequestBody UUIDPicVO uuidPicVO) {
         return this.adminUserService.getUUID(uuidPicVO);
     }
 
@@ -50,7 +50,7 @@ public class AdminUserController {
      * 已上传货物数量、安全数量、危险数量
      */
     @GetMapping("/countInfo")
-    public ResponseVO getCountInfo(){
+    public ResponseVO getCountInfo() {
         return adminUserService.getCountInfo();
     }
 

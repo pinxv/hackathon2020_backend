@@ -33,15 +33,14 @@ public class NewsServiceImpl implements NewsService {
     HighRiskAreaMapper highRiskAreaMapper;
 
     /**
-     *
      * @param highRiskAreaId
      * @return
      */
     @Override
     public ResponseVO getNews(Integer highRiskAreaId) {
         List<News> newsList = newsMapper.findAllByAreaid(highRiskAreaId);
-        List<NewsVO> newsVOList =new ArrayList<>();
-        for(News aNew : newsList){
+        List<NewsVO> newsVOList = new ArrayList<>();
+        for (News aNew : newsList) {
             NewsVO newsVO = new NewsVO();
             newsVO.setTitle(aNew.getTitle());
             newsVO.setUrl(aNew.getUrl());
@@ -54,19 +53,19 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public ResponseVO flushNews() {
 
-        List<HighRiskArea> highRiskAreas= (List<HighRiskArea>) highRiskAreaMapper.findAll();
-        for(HighRiskArea highRiskArea:highRiskAreas){
+        List<HighRiskArea> highRiskAreas = (List<HighRiskArea>) highRiskAreaMapper.findAll();
+        for (HighRiskArea highRiskArea : highRiskAreas) {
             //根据area名称爬取十条数据
             List<NewsVO> newsVOS = NewsCrawler.crawl(highRiskArea.getArea());
 
             //删除过时新闻
-            List<News> news= newsMapper.findAllByAreaid(highRiskArea.getId());
-            for(News aNew:news){
+            List<News> news = newsMapper.findAllByAreaid(highRiskArea.getId());
+            for (News aNew : news) {
                 newsMapper.delete(aNew);
             }
 
             //添加新的新闻
-            for(NewsVO newsVO:newsVOS){
+            for (NewsVO newsVO : newsVOS) {
                 News news1 = new News();
                 news1.setAreaid(highRiskArea.getId());
                 news1.setTitle(newsVO.getTitle());

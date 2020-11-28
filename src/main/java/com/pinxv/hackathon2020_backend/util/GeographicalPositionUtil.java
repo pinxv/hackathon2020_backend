@@ -41,15 +41,15 @@ public class GeographicalPositionUtil {
             latitude = Float.parseFloat(loc[1]);
             adCode = queryInfoObj.getStr("adcode");
         } catch (Exception e) {
-            return new PositionInfoVO(locationName,null,null,null);
+            return new PositionInfoVO(locationName, null, null, null);
         }
         return new PositionInfoVO(locationName, longitude, latitude, adCode);
     }
 
-    public static double getDistance(String location1,String location2){
+    public static double getDistance(String location1, String location2) {
         PositionInfoVO pos1 = getPositionInfo(location1);
         PositionInfoVO pos2 = getPositionInfo(location2);
-        double distance = getDistance(pos1.getLatitude(),pos1.getLongitude(),pos2.getLatitude(),pos2.getLongitude());
+        double distance = getDistance(pos1.getLatitude(), pos1.getLongitude(), pos2.getLatitude(), pos2.getLongitude());
         return distance;
     }
 

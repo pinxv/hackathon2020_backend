@@ -20,6 +20,7 @@ public interface HighRiskAreaMapper extends CrudRepository<HighRiskArea, Integer
 
     /**
      * find area by area name
+     *
      * @param areaName area name
      * @return area list, should has 0 or 1 size
      */

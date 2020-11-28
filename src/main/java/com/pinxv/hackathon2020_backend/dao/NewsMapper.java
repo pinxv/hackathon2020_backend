@@ -10,10 +10,11 @@ import java.util.List;
  *
  * @date 2020/11/28
  */
-public interface NewsMapper  extends CrudRepository<News, Integer> {
+public interface NewsMapper extends CrudRepository<News, Integer> {
 
     /**
      * 根据areaid获取新闻
+     *
      * @return
      */
     List<News> findAllByAreaid(Integer id);

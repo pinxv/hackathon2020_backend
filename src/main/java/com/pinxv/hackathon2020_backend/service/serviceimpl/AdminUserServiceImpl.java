@@ -146,9 +146,9 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public ResponseVO getCountInfo() {
-        Integer batchNum = (int)cargoBatchMapper.count();
+        Integer batchNum = (int) cargoBatchMapper.count();
         Integer unsafeNum = 0;
-        Integer safeNum = batchNum-unsafeNum;
+        Integer safeNum = batchNum - unsafeNum;
         CountInfoVO countInfoVO = new CountInfoVO();
         countInfoVO.setBatchNum(batchNum);
         countInfoVO.setUnsafeNum(unsafeNum);

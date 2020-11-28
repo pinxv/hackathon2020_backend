@@ -17,8 +17,10 @@ public class HighRiskLevelVO {
     Float latitude;
     Integer riskLevel;
 
-    HighRiskLevelVO(){}
-    public HighRiskLevelVO(HighRiskArea area){
+    HighRiskLevelVO() {
+    }
+
+    public HighRiskLevelVO(HighRiskArea area) {
         this.setId(area.getId());
         this.setAdcode(area.getAdcode());
         this.setLocationName(area.getArea());

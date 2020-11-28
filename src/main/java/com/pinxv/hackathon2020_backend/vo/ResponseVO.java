@@ -15,9 +15,10 @@ public class ResponseVO {
 
     public Object data;
 
-    private ResponseVO(){}
+    private ResponseVO() {
+    }
 
-    private ResponseVO(StatusCode statusCode, Object data){
+    private ResponseVO(StatusCode statusCode, Object data) {
         this.code = statusCode.getCode();
         this.message = statusCode.getMessage();
         this.data = data;
@@ -54,7 +55,7 @@ public class ResponseVO {
         return new ResponseVO(StatusCode.FAILURE, null);
     }
 
-    public static ResponseVO buildFailure(StatusCode statusCode){
-        return new ResponseVO(statusCode,null);
+    public static ResponseVO buildFailure(StatusCode statusCode) {
+        return new ResponseVO(statusCode, null);
     }
 }

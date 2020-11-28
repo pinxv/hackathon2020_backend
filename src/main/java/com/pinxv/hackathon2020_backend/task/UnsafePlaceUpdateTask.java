@@ -39,18 +39,18 @@ public class UnsafePlaceUpdateTask {
     Double maxDistanceBetween = 200.0;
 
     @Scheduled(cron = "0 0 0/1 * * ? ")
-    public void updateUnsafePlace(){
+    public void updateUnsafePlace() {
         unsafeCargoBatchMapper.deleteAll();
         List<HighRiskArea> highRiskAreaList = highRiskAreaMapper.findAll();
         List<ChangeCargoInfo> changeCargoInfoList = changeCargoInfoMapper.findAll();
         Date now = DateUtil.parse(DateUtil.now());
-        for(HighRiskArea highRiskArea:highRiskAreaList){
-            for(ChangeCargoInfo changeCargoInfo:changeCargoInfoList){
+        for (HighRiskArea highRiskArea : highRiskAreaList) {
+            for (ChangeCargoInfo changeCargoInfo : changeCargoInfoList) {
                 Date cargoDate = DateUtil.parse(changeCargoInfo.getTimestamp().toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-                long timeBetween = DateUtil.between(cargoDate,now, DateUnit.HOUR);
-                if(timeBetween<maxHourBetween){
-                    double distanceBetween = GeographicalPositionUtil.getDistance(highRiskArea.getArea(),changeCargoInfo.getPlace());
-                    if(distanceBetween<maxDistanceBetween){
+                long timeBetween = DateUtil.between(cargoDate, now, DateUnit.HOUR);
+                if (timeBetween < maxHourBetween) {
+                    double distanceBetween = GeographicalPositionUtil.getDistance(highRiskArea.getArea(), changeCargoInfo.getPlace());
+                    if (distanceBetween < maxDistanceBetween) {
                         UnsafeCargoBatch unsafeCargoBatch = new UnsafeCargoBatch();
                         unsafeCargoBatch.setBatchNum(changeCargoInfo.getBatchNumber());
                         unsafeCargoBatch.setHighRiskAreaId(highRiskArea.getId());
