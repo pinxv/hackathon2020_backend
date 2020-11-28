@@ -3,7 +3,10 @@ package com.pinxv.hackathon2020_backend.selenium;
 import cn.hutool.core.util.URLUtil;
 import com.pinxv.hackathon2020_backend.vo.NewsVO;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +17,13 @@ import java.util.List;
  * @date 2020/11/28
  */
 public class NewsCrawler extends Crawler{
+
+
+
     private static String urlbase = "https://www.baidu.com/s?tn=news&word=";
 
     public static List<NewsVO> crawl(String keyword){
+        DRIVER=new ChromeDriver();
         List<NewsVO> newsVOS = new ArrayList<>();
         String realURL = urlbase+URLUtil.encode(keyword);
         DRIVER.get(realURL);
@@ -30,9 +37,5 @@ public class NewsCrawler extends Crawler{
             newsVOS.add(newsVO);
         }
         return newsVOS;
-    }
-
-    public static void main(String[] args) {
-
     }
 }

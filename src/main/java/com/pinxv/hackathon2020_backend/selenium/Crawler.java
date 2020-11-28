@@ -11,6 +11,5 @@ public abstract class Crawler {
     protected Crawler() {
     }
 
-    protected static final WebDriver DRIVER = new ChromeDriver();
-
+    protected static WebDriver DRIVER = new ChromeDriver();
 }
