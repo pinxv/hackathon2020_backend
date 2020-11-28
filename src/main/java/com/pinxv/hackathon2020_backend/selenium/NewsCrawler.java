@@ -5,6 +5,7 @@ import com.pinxv.hackathon2020_backend.vo.NewsVO;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,11 @@ public class NewsCrawler extends Crawler {
     private static String urlBase = "https://www.baidu.com/s?tn=news&word=";
 
     public static List<NewsVO> crawl(String keyword) {
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
+        ChromeOptions chromeOptions = new ChromeOptions();
+        // 设置为 headless 模式 （无头浏览器）
+        chromeOptions.addArguments("--headless");
+        driver = new ChromeDriver(chromeOptions);
         List<NewsVO> newsVOS = new ArrayList<>();
         String realURL = urlBase + URLUtil.encode(keyword);
         driver.get(realURL);
