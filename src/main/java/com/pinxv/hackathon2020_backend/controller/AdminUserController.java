@@ -8,16 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>description: </p>
+ * <p>description:用户管理接口 </p>
  *
  * @date 2020/11/28
  */
 @RestController
-@RequestMapping("/api/adminuser")
+@RequestMapping("/api/AdminUser")
 public class AdminUserController {
 
     @PostMapping("/login")
     public ResponseVO login(@RequestBody LoginUserVO loginUserVO){
         return null;
     }
+
 }

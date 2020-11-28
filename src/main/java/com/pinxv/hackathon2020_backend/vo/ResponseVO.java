@@ -54,4 +54,7 @@ public class ResponseVO {
         return new ResponseVO(StatusCode.FAILURE, null);
     }
 
+    public static ResponseVO buildFailure(StatusCode statusCode){
+        return new ResponseVO(statusCode,null);
+    }
 }

@@ -43,7 +43,7 @@ public class GeographicalPositionUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(getPositionInfo("天津天津市滨海新区东疆港区瞰海轩小区"));
+        System.out.println(getPositionInfo("上海上海市浦东新区祝桥镇新生小区"));
     }
 
 }
