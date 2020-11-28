@@ -1,15 +1,11 @@
 package com.pinxv.hackathon2020_backend.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 
 import lombok.Data;
 
 import java.io.Serializable;
-import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 @Data
@@ -46,5 +42,9 @@ public class RiskLevel implements Serializable {
 
     @Column(name = "riskLevel")
     private Integer riskLevel;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "riskLevelEntity")
+    @JoinColumn(name = "riskLevelId")
+    private List<HighRiskArea> highRiskAreaList;
 
 }
