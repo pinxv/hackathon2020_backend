@@ -54,4 +54,9 @@ public class AdminUserController {
         return adminUserService.getCountInfo();
     }
 
+    @GetMapping("/history")
+    public ResponseVO getHistory(String username){
+        return adminUserService.getHistory(username);
+    }
+
 }

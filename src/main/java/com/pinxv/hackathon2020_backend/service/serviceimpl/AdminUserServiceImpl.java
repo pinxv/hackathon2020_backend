@@ -9,6 +9,7 @@ import com.pinxv.hackathon2020_backend.entity.Cargo;
 import com.pinxv.hackathon2020_backend.entity.CargoBatch;
 import com.pinxv.hackathon2020_backend.entity.ChangeCargoInfo;
 import com.pinxv.hackathon2020_backend.service.AdminUserService;
+import com.pinxv.hackathon2020_backend.task.UnsafePlaceUpdateTask;
 import com.pinxv.hackathon2020_backend.util.QRCodeUtil;
 import com.pinxv.hackathon2020_backend.vo.ResponseVO;
 import com.pinxv.hackathon2020_backend.vo.UUIDPicVO;
@@ -46,6 +47,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Autowired
     private final CargoMapper cargoMapper;
 
+    @Autowired
+    UnsafePlaceUpdateTask unsafePlaceUpdateTask;
+
     public AdminUserServiceImpl(AdminUserMapper adminUserMapper, CargoBatchMapper cargoBatchMapper, ChangeCargoInfoMapper changeCargoInfoMapper, CargoMapper cargoMapper) {
         this.adminUserMapper = adminUserMapper;
         this.cargoBatchMapper = cargoBatchMapper;
@@ -76,6 +80,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         ChangeCargoInfo changeCargoInfo = new ChangeCargoInfo();
         BeanUtils.copyProperties(changeCargoInfoVO, changeCargoInfo);
         this.changeCargoInfoMapper.save(changeCargoInfo);
+        unsafePlaceUpdateTask.updateUnsafePlace(changeCargoInfo);
         CargoBatch cargoBatch = new CargoBatch();
         BeanUtils.copyProperties(changeCargoInfoVO, cargoBatch);
         this.cargoBatchMapper.save(cargoBatch);
@@ -103,6 +108,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         ChangeCargoInfo changeCargoInfo = new ChangeCargoInfo();
         BeanUtils.copyProperties(changeCargoInfoVO, changeCargoInfo);
         this.changeCargoInfoMapper.save(changeCargoInfo);
+        unsafePlaceUpdateTask.updateUnsafePlace(changeCargoInfo);
         return ResponseVO.buildSuccess();
     }
 
@@ -147,12 +153,24 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public ResponseVO getCountInfo() {
         Integer batchNum = (int)cargoBatchMapper.count();
-        Integer unsafeNum = 0;
+        Integer unsafeNum = cargoBatchMapper.countByIsSafeEquals(false);
         Integer safeNum = batchNum-unsafeNum;
         CountInfoVO countInfoVO = new CountInfoVO();
         countInfoVO.setBatchNum(batchNum);
         countInfoVO.setUnsafeNum(unsafeNum);
         countInfoVO.setSafeNum(safeNum);
         return ResponseVO.buildSuccess(countInfoVO);
+    }
+
+    @Override
+    public ResponseVO getHistory(String username) {
+        List<CargoBatch> cargoBatchList = cargoBatchMapper.findByCreator(username);
+        List<CargoBatchVO> cargoBatchVOList = new ArrayList<>();
+        for(CargoBatch cargoBatch:cargoBatchList){
+            CargoBatchVO cargoBatchVO = new CargoBatchVO();
+            BeanUtils.copyProperties(cargoBatch,cargoBatchVO);
+            cargoBatchVOList.add(cargoBatchVO);
+        }
+        return ResponseVO.buildSuccess(cargoBatchVOList);
     }
 }
