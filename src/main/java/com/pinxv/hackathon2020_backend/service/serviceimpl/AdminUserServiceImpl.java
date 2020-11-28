@@ -143,6 +143,19 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
+    public ResponseVO getDetails(String UUID) {
+        List<CargoBatch> cargoBatchList = cargoBatchMapper.findByBatchNumber(UUID);
+        if (cargoBatchList.isEmpty()) {
+            return ResponseVO.buildFailure("查询失败，请检查UUID是否存在");
+        } else {
+            CargoBatch cargoBatch = cargoBatchList.get(0);
+            CargoBatchVO cargoBatchVO = new CargoBatchVO();
+            BeanUtils.copyProperties(cargoBatch, cargoBatchVO);
+            return ResponseVO.buildSuccess(cargoBatchVO);
+        }
+    }
+
+    @Override
     public ResponseVO getUUID(UUIDPicVO uuidPicVO) {
         String UUID = QRCodeUtil.decodeQRCode(uuidPicVO.getBase64());
         if (UUID == null) {

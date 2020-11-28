@@ -36,6 +36,11 @@ public class AdminUserController {
         return this.adminUserService.getDetails(uuidPicVO);
     }
 
+    @GetMapping("/getDetailsByUUID")
+    public ResponseVO getDetails(String UUID) {
+        return this.adminUserService.getDetails(UUID);
+    }
+
     @PostMapping("/changeCargoBatchInfoConfirm")
     public ResponseVO changeCargoBatchInfoConfirm(@RequestBody ChangeCargoInfoVO changeCargoInfoVO) {
         return this.adminUserService.changeCargoBatchInfoConfirm(changeCargoInfoVO);
