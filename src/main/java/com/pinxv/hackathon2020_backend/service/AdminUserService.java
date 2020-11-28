@@ -20,6 +20,4 @@ public interface AdminUserService {
 
     ResponseVO changeCargoBatchInfo(ChangeCargoInfoVO changeCargoInfoVO);
 
-    ResponseVO distributeCargo(ChangeCargoInfoVO changeCargoInfoVO);
-
 }

@@ -33,14 +33,11 @@ public class AdminUserController {
         return this.adminUserService.importCargoBatch(changeCargoInfoVO);
     }
 
+
+
     @PostMapping("/changeCargoBatchInfo")
     public ResponseVO changeCargoBatchInfo(@RequestBody ChangeCargoInfoVO changeCargoInfoVO) {
         return this.adminUserService.changeCargoBatchInfo(changeCargoInfoVO);
-    }
-
-    @PostMapping("/distributeCargo")
-    public ResponseVO distributeCargo(@RequestBody ChangeCargoInfoVO changeCargoInfoVO) {
-        return this.adminUserService.distributeCargo(changeCargoInfoVO);
     }
 
 }

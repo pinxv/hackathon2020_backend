@@ -16,4 +16,8 @@ public class ChangeCargoInfoVO {
 
     private String description;
 
+    private String destination;
+
+    private String creator;
+
 }

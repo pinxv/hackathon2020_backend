@@ -2,10 +2,13 @@ package com.pinxv.hackathon2020_backend.service.serviceimpl;
 
 import com.pinxv.hackathon2020_backend.dao.AdminUserMapper;
 import com.pinxv.hackathon2020_backend.dao.CargoBatchMapper;
+import com.pinxv.hackathon2020_backend.dao.ChangeCargoInfoMapper;
 import com.pinxv.hackathon2020_backend.entity.AdminUser;
+import com.pinxv.hackathon2020_backend.entity.Cargo;
 import com.pinxv.hackathon2020_backend.entity.CargoBatch;
 import com.pinxv.hackathon2020_backend.entity.ChangeCargoInfo;
 import com.pinxv.hackathon2020_backend.service.AdminUserService;
+import com.pinxv.hackathon2020_backend.util.QRCodeUtil;
 import com.pinxv.hackathon2020_backend.vo.ResponseVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.LoginUserVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.UserVO;
@@ -17,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>description: </p>
@@ -34,9 +38,13 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Autowired
     private final CargoBatchMapper cargoBatchMapper;
 
-    public AdminUserServiceImpl(AdminUserMapper adminUserMapper, CargoBatchMapper cargoBatchMapper) {
+    @Autowired
+    private final ChangeCargoInfoMapper changeCargoInfoMapper;
+
+    public AdminUserServiceImpl(AdminUserMapper adminUserMapper, CargoBatchMapper cargoBatchMapper, ChangeCargoInfoMapper changeCargoInfoMapper) {
         this.adminUserMapper = adminUserMapper;
         this.cargoBatchMapper = cargoBatchMapper;
+        this.changeCargoInfoMapper = changeCargoInfoMapper;
     }
 
     @Override
@@ -53,18 +61,34 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public ResponseVO importCargoBatch(ChangeCargoInfoVO changeCargoInfoVO) {
-        // TODO return a base64 code and save
-        return ResponseVO.buildSuccess();
+        String batchNumber = String.valueOf(UUID.randomUUID());
+        changeCargoInfoVO.setBatchNumber(batchNumber);
+        ChangeCargoInfo changeCargoInfo = new ChangeCargoInfo();
+        BeanUtils.copyProperties(changeCargoInfoVO, changeCargoInfo);
+        this.changeCargoInfoMapper.save(changeCargoInfo);
+        CargoBatch cargoBatch = new CargoBatch();
+        BeanUtils.copyProperties(changeCargoInfoVO, cargoBatch);
+        this.cargoBatchMapper.save(cargoBatch);
+        String base64 = QRCodeUtil.encodeQRCode(batchNumber);
+        for (int i = 0; i < changeCargoInfo.getSum(); i++) {
+            Cargo cargo = new Cargo();
+            BeanUtils.copyProperties(changeCargoInfoVO, cargo);
+            String suffix = Integer.toHexString(i);
+            int len = suffix.length();
+            for (int j = 0; j < 16 - len; i++) {
+                suffix = "0" + suffix;
+            }
+            cargo.setSerialNumber(batchNumber + suffix);
+        }
+        return ResponseVO.buildSuccess(base64);
     }
 
     @Override
     public ResponseVO changeCargoBatchInfo(ChangeCargoInfoVO changeCargoInfoVO) {
-        return null;
-    }
-
-    @Override
-    public ResponseVO distributeCargo(ChangeCargoInfoVO changeCargoInfoVO) {
-        return null;
+        ChangeCargoInfo changeCargoInfo = new ChangeCargoInfo();
+        BeanUtils.copyProperties(changeCargoInfoVO, changeCargoInfo);
+        this.changeCargoInfoMapper.save(changeCargoInfo);
+        return ResponseVO.buildSuccess();
     }
 
 }

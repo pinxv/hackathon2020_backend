@@ -48,7 +48,7 @@ public class QRCodeUtil {
     }
 
     /**
-     * @param base64
+     * @param base64 base64
      * @return 解码信息
      */
     public static String decodeQRCode(String base64) {
@@ -65,15 +65,15 @@ public class QRCodeUtil {
     public static String encodeQRCode(String source) {
         String filePath = BASE_FILE_PATH + System.currentTimeMillis() + (int) (Math.random() * 10000) + ".jpeg";
         QrCodeUtil.generate(source, 300, 300, FileUtil.file(filePath));
-        String base64 = PicToBase64(filePath);
+        String base64 = picToBase64(filePath);
         FileUtil.del(new File(filePath));
         return base64;
     }
 
-    public static String PicToBase64(String filePath) {
+    public static String picToBase64(String filePath) {
         String picBase = "data:image/png;base64,";
-        InputStream inputStream = null;
-        byte[] data = null;
+        InputStream inputStream;
+        byte[] data;
         try {
             File file;
             inputStream = new FileInputStream(filePath);

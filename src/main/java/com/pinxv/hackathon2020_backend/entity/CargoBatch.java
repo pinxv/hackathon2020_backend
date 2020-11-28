@@ -14,6 +14,7 @@ public class CargoBatch {
     private String description;
     private Integer sum;
     private String creator;
+    private String destination;
 
     @Id
     @Column(name = "id")
@@ -65,6 +66,16 @@ public class CargoBatch {
         this.creator = creator;
     }
 
+    @Basic
+    @Column(name = "destination")
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -78,11 +89,12 @@ public class CargoBatch {
                 sum.equals(that.sum) &&
                 Objects.equals(batchNumber, that.batchNumber) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(creator, that.creator);
+                Objects.equals(creator, that.creator) &&
+                Objects.equals(destination, that.destination);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, batchNumber, description, sum, creator);
+        return Objects.hash(id, batchNumber, description, sum, creator, destination);
     }
 }

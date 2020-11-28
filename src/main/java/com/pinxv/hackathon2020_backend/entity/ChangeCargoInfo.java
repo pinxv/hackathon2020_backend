@@ -1,6 +1,7 @@
 package com.pinxv.hackathon2020_backend.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +13,8 @@ public class ChangeCargoInfo {
     private String batchNumber;
     private String description;
     private String destination;
+    private String creator;
+    private Timestamp timestamp;
 
     @Id
     @Column(name = "id")
@@ -73,6 +76,26 @@ public class ChangeCargoInfo {
         this.destination = destination;
     }
 
+    @Basic
+    @Column(name = "creator")
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    @Basic
+    @Column(name = "timestamp")
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -87,12 +110,14 @@ public class ChangeCargoInfo {
                 Objects.equals(place, that.place) &&
                 Objects.equals(batchNumber, that.batchNumber) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(destination, that.destination);
+                Objects.equals(destination, that.destination) &&
+                Objects.equals(creator, that.creator) &&
+                Objects.equals(timestamp, that.timestamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, place, sum, batchNumber, description, destination);
+        return Objects.hash(id, place, sum, batchNumber, description, destination, creator, timestamp);
     }
 
 }
