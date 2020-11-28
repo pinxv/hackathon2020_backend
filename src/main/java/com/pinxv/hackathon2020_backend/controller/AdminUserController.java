@@ -6,10 +6,7 @@ import com.pinxv.hackathon2020_backend.vo.UUIDPicVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.LoginUserVO;
 import com.pinxv.hackathon2020_backend.vo.cargo.ChangeCargoInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>description:用户管理接口 </p>
@@ -47,6 +44,14 @@ public class AdminUserController {
     @PostMapping("/getUUID")
     public ResponseVO getUUID(@RequestBody UUIDPicVO uuidPicVO){
         return this.adminUserService.getUUID(uuidPicVO);
+    }
+
+    /**
+     * 已上传货物数量、安全数量、危险数量
+     */
+    @GetMapping("/countInfo")
+    public ResponseVO getCountInfo(){
+        return adminUserService.getCountInfo();
     }
 
 }

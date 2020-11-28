@@ -14,7 +14,7 @@ import java.io.*;
  */
 public class QRCodeUtil {
 
-    private static final String BASE_FILE_PATH = System.getProperty("user.dir") + "\\QRCode\\";
+    private static final String BASE_FILE_PATH = System.getProperty("user.dir") + "/QRCode/";
 
     /**
      * @param base64 base64
