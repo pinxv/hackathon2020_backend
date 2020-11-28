@@ -12,6 +12,7 @@ import com.pinxv.hackathon2020_backend.service.AdminUserService;
 import com.pinxv.hackathon2020_backend.util.QRCodeUtil;
 import com.pinxv.hackathon2020_backend.vo.ResponseVO;
 import com.pinxv.hackathon2020_backend.vo.UUIDPicVO;
+import com.pinxv.hackathon2020_backend.vo.adminuser.CountInfoVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.LoginUserVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.UserVO;
 import com.pinxv.hackathon2020_backend.vo.cargo.*;
@@ -143,4 +144,15 @@ public class AdminUserServiceImpl implements AdminUserService {
         }
     }
 
+    @Override
+    public ResponseVO getCountInfo() {
+        Integer batchNum = (int)cargoBatchMapper.count();
+        Integer unsafeNum = 0;
+        Integer safeNum = batchNum-unsafeNum;
+        CountInfoVO countInfoVO = new CountInfoVO();
+        countInfoVO.setBatchNum(batchNum);
+        countInfoVO.setUnsafeNum(unsafeNum);
+        countInfoVO.setSafeNum(safeNum);
+        return ResponseVO.buildSuccess(countInfoVO);
+    }
 }

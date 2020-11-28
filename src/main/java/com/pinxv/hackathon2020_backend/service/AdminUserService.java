@@ -22,4 +22,5 @@ public interface AdminUserService {
 
     ResponseVO getUUID(UUIDPicVO uuidPicVO);
 
+    ResponseVO getCountInfo();
 }

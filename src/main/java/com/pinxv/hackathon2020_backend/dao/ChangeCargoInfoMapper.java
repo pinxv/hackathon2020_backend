@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface ChangeCargoInfoMapper extends CrudRepository<ChangeCargoInfo, Integer> {
     List<ChangeCargoInfo> findAllByBatchNumber(String batchNumber);
+
+    List<ChangeCargoInfo> findAll();
 }
