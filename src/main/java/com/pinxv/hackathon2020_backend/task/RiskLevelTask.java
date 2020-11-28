@@ -29,7 +29,7 @@ public class RiskLevelTask {
         this.highRiskAreaMapper = highRiskAreaMapper;
     }
 
-    @Scheduled(cron = "45 13 0 * * *")
+    @Scheduled(cron = "20 22 0 * * *")
     public void temp() {
         this.executeRiskLevelCrawler();
     }

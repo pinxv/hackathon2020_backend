@@ -20,11 +20,15 @@ public class NewsCrawler extends Crawler {
     private static String urlBase = "https://www.baidu.com/s?tn=news&word=";
 
     public static List<NewsVO> crawl(String keyword) {
-        System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
-        ChromeOptions chromeOptions = new ChromeOptions();
-        // 设置为 headless 模式 （无头浏览器）
-        chromeOptions.addArguments("--headless","--no-sandbox","--disable-gpu","--disable-dev-shm-usage");
-        driver = new ChromeDriver(chromeOptions);
+        try {
+            driver = new ChromeDriver();
+        } catch (Exception e) {
+            System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
+            ChromeOptions chromeOptions = new ChromeOptions();
+            // 设置为 headless 模式 （无头浏览器）
+            chromeOptions.addArguments("--headless","--no-sandbox","--disable-gpu","--disable-dev-shm-usage");
+            driver = new ChromeDriver(chromeOptions);
+        }
         List<NewsVO> newsVOS = new ArrayList<>();
         String realURL = urlBase + URLUtil.encode(keyword);
         driver.get(realURL);

@@ -26,20 +26,18 @@ public class NewsTask {
     HighRiskAreaMapper highRiskAreaMapper;
 
     @Scheduled(cron = "0 0/15 * * * ?")
-    public void executeNewsCrawler(){
-        List<HighRiskArea> highRiskAreas= (List<HighRiskArea>) highRiskAreaMapper.findAll();
-        for(HighRiskArea highRiskArea:highRiskAreas){
-            //根据area名称爬取十条数据
+    public void executeNewsCrawler() {
+        List<HighRiskArea> highRiskAreas = (List<HighRiskArea>) highRiskAreaMapper.findAll();
+        for (HighRiskArea highRiskArea : highRiskAreas) {
+            // 根据area名称爬取十条数据
             List<NewsVO> newsVOS = NewsCrawler.crawl(highRiskArea.getArea());
-
-            //删除过时新闻
-            List<News> news= newsMapper.findAllByAreaid(highRiskArea.getId());
-            for(News aNew:news){
+            // 删除过时新闻
+            List<News> news = newsMapper.findAllByAreaid(highRiskArea.getId());
+            for (News aNew : news) {
                 newsMapper.delete(aNew);
             }
-
-            //添加新的新闻
-            for(NewsVO newsVO:newsVOS){
+            // 添加新的新闻
+            for (NewsVO newsVO : newsVOS) {
                 News news1 = new News();
                 news1.setAreaid(highRiskArea.getId());
                 news1.setTitle(newsVO.getTitle());
