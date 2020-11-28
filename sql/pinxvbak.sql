@@ -27,14 +27,12 @@ DROP TABLE IF EXISTS `HighRiskArea`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `HighRiskArea` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `riskLevelId` int(11) DEFAULT NULL,
-  `area` int(11) DEFAULT NULL COMMENT '风险地区名称',
+  `area` varchar(66) DEFAULT NULL COMMENT '风险地区名称',
   `latitude` float DEFAULT NULL COMMENT '纬度',
   `longitude` float DEFAULT NULL COMMENT '经度',
   `riskLevel` int(11) DEFAULT NULL COMMENT '风险等级',
-  PRIMARY KEY (`id`),
-  KEY `riskLevelId_fk` (`riskLevelId`),
-  CONSTRAINT `riskLevelId_fk` FOREIGN KEY (`riskLevelId`) REFERENCES `RiskLevel` (`id`)
+  `adcode` int(10) DEFAULT NULL COMMENT 'area number',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

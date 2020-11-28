@@ -28,8 +28,13 @@ public class RiskLevelTask {
         this.highRiskAreaMapper = highRiskAreaMapper;
     }
 
+    @Scheduled(cron = "0 35 14 * * *")
+    public void test() {
+        this.executeRiskLevelCrawler();
+    }
+
     @Scheduled(cron = "0 0 3 * * *")
-    public void executeRiskLevelCrawler() throws InterruptedException {
+    public void executeRiskLevelCrawler() {
         List<Pair<String, Integer>> riskLevels = RiskLevelCrawler.crawl();
         List<PositionInfoVO> positionInfoVOs = new ArrayList<>();
         for (Pair<String, Integer> riskLevel : riskLevels) {
