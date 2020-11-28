@@ -21,14 +21,11 @@ public class HighRiskArea implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "riskLevelId")
-    private Integer riskLevelId;
-
     /**
      * 风险地区名称
      */
     @Column(name = "area")
-    private Integer area;
+    private String area;
 
     /**
      * 纬度
@@ -47,6 +44,9 @@ public class HighRiskArea implements Serializable {
      */
     @Column(name = "riskLevel")
     private Integer riskLevel;
+
+    @Column(name = "adcode")
+    private String adcode;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")

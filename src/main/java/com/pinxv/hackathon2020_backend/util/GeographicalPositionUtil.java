@@ -15,15 +15,16 @@ public class GeographicalPositionUtil {
 
     /**
      * 获取地理位置详细信息
+     *
      * @param locationName 地理位置全称 例：北京市朝阳区阜通东大街6号
      * @return PositionInfoVO对象
      */
-    public static PositionInfoVO getPositionInfo(String locationName){
+    public static PositionInfoVO getPositionInfo(String locationName) {
         Float longitude;
         Float latitude;
         String adCode;
         //完成请求
-        try{
+        try {
             String url = "https://restapi.amap.com/v3/geocode/geo";
             String key = "9fbf6778861a6699c10613e1d0769486";
             String locationInfo = HttpUtil.get(url + "?key=" + key + "&address=" + locationName);
@@ -34,16 +35,11 @@ public class GeographicalPositionUtil {
             String[] loc = queryInfoObj.getStr("location").split(",");
             longitude = Float.parseFloat(loc[0]);
             latitude = Float.parseFloat(loc[1]);
-            adCode = qureydInfoObj.getStr("adcode");
-        }
-        catch (Exception e){
+            adCode = queryInfoObj.getStr("adcode");
+        } catch (Exception e) {
             return null;
         }
-        return new PositionInfoVO(locationName, longitude,latitude,adCode);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getPositionInfo("河北省衡水市"));
+        return new PositionInfoVO(locationName, longitude, latitude, adCode);
     }
 
 }
