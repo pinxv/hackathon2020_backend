@@ -63,6 +63,9 @@ public class UnsafePlaceUpdateTask {
                     UnsafeCargoBatch unsafeCargoBatch = new UnsafeCargoBatch();
                     unsafeCargoBatch.setBatchNum(changeCargoInfo.getBatchNumber());
                     unsafeCargoBatch.setHighRiskAreaId(highRiskArea.getId());
+                    unsafeCargoBatch.setUnsafeChangeCargoId(changeCargoInfo.getId());
+                    unsafeCargoBatch.setActualPlace(changeCargoInfo.getPlace());
+                    unsafeCargoBatch.setHighRiskPlace(highRiskArea.getArea());
                     unsafeCargoBatchMapper.save(unsafeCargoBatch);
                     List<CargoBatch> cargoBatchList = cargoBatchMapper.findByBatchNumber(changeCargoInfo.getBatchNumber());
                     if (cargoBatchList.isEmpty()){

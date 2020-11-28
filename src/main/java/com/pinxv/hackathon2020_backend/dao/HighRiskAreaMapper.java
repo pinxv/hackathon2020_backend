@@ -4,6 +4,7 @@ import com.pinxv.hackathon2020_backend.entity.HighRiskArea;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author njuselhx
@@ -26,5 +27,6 @@ public interface HighRiskAreaMapper extends CrudRepository<HighRiskArea, Integer
     List<HighRiskArea> findByArea(String areaName);
 
     List<HighRiskArea> findAll();
+
 
 }

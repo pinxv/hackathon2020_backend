@@ -1,13 +1,7 @@
 package com.pinxv.hackathon2020_backend.service.serviceimpl;
 
-import com.pinxv.hackathon2020_backend.dao.AdminUserMapper;
-import com.pinxv.hackathon2020_backend.dao.CargoBatchMapper;
-import com.pinxv.hackathon2020_backend.dao.CargoMapper;
-import com.pinxv.hackathon2020_backend.dao.ChangeCargoInfoMapper;
-import com.pinxv.hackathon2020_backend.entity.AdminUser;
-import com.pinxv.hackathon2020_backend.entity.Cargo;
-import com.pinxv.hackathon2020_backend.entity.CargoBatch;
-import com.pinxv.hackathon2020_backend.entity.ChangeCargoInfo;
+import com.pinxv.hackathon2020_backend.dao.*;
+import com.pinxv.hackathon2020_backend.entity.*;
 import com.pinxv.hackathon2020_backend.service.AdminUserService;
 import com.pinxv.hackathon2020_backend.task.UnsafePlaceUpdateTask;
 import com.pinxv.hackathon2020_backend.util.QRCodeUtil;
@@ -48,13 +42,20 @@ public class AdminUserServiceImpl implements AdminUserService {
     private final CargoMapper cargoMapper;
 
     @Autowired
+    private final UnsafeCargoBatchMapper unsafeCargoBatchMapper;
+
+    @Autowired
+    HighRiskAreaMapper highRiskAreaMapper;
+
+    @Autowired
     UnsafePlaceUpdateTask unsafePlaceUpdateTask;
 
-    public AdminUserServiceImpl(AdminUserMapper adminUserMapper, CargoBatchMapper cargoBatchMapper, ChangeCargoInfoMapper changeCargoInfoMapper, CargoMapper cargoMapper) {
+    public AdminUserServiceImpl(AdminUserMapper adminUserMapper, CargoBatchMapper cargoBatchMapper, ChangeCargoInfoMapper changeCargoInfoMapper, CargoMapper cargoMapper, UnsafeCargoBatchMapper unsafeCargoBatchMapper) {
         this.adminUserMapper = adminUserMapper;
         this.cargoBatchMapper = cargoBatchMapper;
         this.changeCargoInfoMapper = changeCargoInfoMapper;
         this.cargoMapper = cargoMapper;
+        this.unsafeCargoBatchMapper = unsafeCargoBatchMapper;
     }
 
     @Override
@@ -128,7 +129,15 @@ public class AdminUserServiceImpl implements AdminUserService {
                 changeCargoPlaceVOList.add(new ChangeCargoPlaceVO(changeCargoInfo));
             }
             String description = changeCargoInfoList.get(0).getDescription();
-            CargoChangeDetailsVO cargoChangeDetailsVO = new CargoChangeDetailsVO(UUID, description, changeCargoPlaceVOList);
+            List<UnsafeInfoVO> unsafeInfoVOList = new ArrayList<>();
+            List<UnsafeCargoBatch> unsafeCargoBatchList = unsafeCargoBatchMapper.findAllByBatchNum(UUID);
+            for(UnsafeCargoBatch unsafeCargoBatch:unsafeCargoBatchList){
+                UnsafeInfoVO unsafeInfoVO = new UnsafeInfoVO();
+                unsafeInfoVO.setActualLoc(unsafeCargoBatch.getActualPlace());
+                unsafeInfoVO.setUnsafeLoc(unsafeCargoBatch.getHighRiskPlace());
+                unsafeInfoVOList.add(unsafeInfoVO);
+            }
+            CargoChangeDetailsVO cargoChangeDetailsVO = new CargoChangeDetailsVO(UUID, description, changeCargoPlaceVOList,unsafeInfoVOList);
             return ResponseVO.buildSuccess(cargoChangeDetailsVO);
         }
     }

@@ -14,10 +14,12 @@ public class CargoChangeDetailsVO {
     String UUID;
     String description;
     List<ChangeCargoPlaceVO> placeList;
+    List<UnsafeInfoVO> unsafeInfoVOList;
 
-    public CargoChangeDetailsVO(String UUID, String description, List<ChangeCargoPlaceVO> placeList) {
+    public CargoChangeDetailsVO(String UUID, String description, List<ChangeCargoPlaceVO> placeList,List<UnsafeInfoVO> unsafeInfoVOList) {
         this.UUID = UUID;
         this.description = description;
         this.placeList = placeList;
+        this.unsafeInfoVOList = unsafeInfoVOList;
     }
 }

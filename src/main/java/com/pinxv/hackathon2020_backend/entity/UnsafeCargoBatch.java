@@ -23,4 +23,13 @@ public class UnsafeCargoBatch implements Serializable {
     @Column(name = "highRiskAreaId", nullable = false)
     private Integer highRiskAreaId;
 
+    @Column(name = "unsafeChangeCargoId")
+    private Integer unsafeChangeCargoId;
+
+    @Column(name = "actualPlace")
+    String actualPlace;
+
+    @Column(name = "highRiskPlace")
+    String highRiskPlace;
+
 }

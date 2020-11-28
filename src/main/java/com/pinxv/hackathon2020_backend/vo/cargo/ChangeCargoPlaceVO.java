@@ -5,12 +5,14 @@ import cn.hutool.core.date.LocalDateTimeUtil;
 import com.pinxv.hackathon2020_backend.entity.ChangeCargoInfo;
 import com.pinxv.hackathon2020_backend.util.GeographicalPositionUtil;
 import com.pinxv.hackathon2020_backend.vo.PositionInfoVO;
+import lombok.Data;
 
 /**
  * <p>description: </p>
  *
  * @date 2020/11/28
  */
+@Data
 public class ChangeCargoPlaceVO {
     String place;
     String time;
