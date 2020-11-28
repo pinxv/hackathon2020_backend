@@ -24,7 +24,7 @@ public class AdminUserController {
 
     @PostMapping("/login")
     public ResponseVO login(@RequestBody LoginUserVO loginUserVO) {
-        return null;
+        return this.adminUserService.login(loginUserVO);
     }
 
 }
