@@ -2,6 +2,7 @@ package com.pinxv.hackathon2020_backend.controller;
 
 import com.pinxv.hackathon2020_backend.service.AdminUserService;
 import com.pinxv.hackathon2020_backend.vo.ResponseVO;
+import com.pinxv.hackathon2020_backend.vo.UUIDPicVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.LoginUserVO;
 import com.pinxv.hackathon2020_backend.vo.cargo.ChangeCargoInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,19 @@ public class AdminUserController {
         return this.adminUserService.importCargoBatch(changeCargoInfoVO);
     }
 
-
+    @PostMapping("/getDetails")
+    public ResponseVO getDetails(@RequestBody UUIDPicVO uuidPicVO){
+        return this.adminUserService.getDetails(uuidPicVO);
+    }
 
     @PostMapping("/changeCargoBatchInfo")
     public ResponseVO changeCargoBatchInfo(@RequestBody ChangeCargoInfoVO changeCargoInfoVO) {
         return this.adminUserService.changeCargoBatchInfo(changeCargoInfoVO);
+    }
+
+    @PostMapping("/getUUID")
+    public ResponseVO getUUID(@RequestBody UUIDPicVO uuidPicVO){
+        return this.adminUserService.getUUID(uuidPicVO);
     }
 
 }

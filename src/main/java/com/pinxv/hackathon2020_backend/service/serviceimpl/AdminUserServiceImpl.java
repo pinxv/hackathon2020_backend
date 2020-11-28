@@ -10,17 +10,15 @@ import com.pinxv.hackathon2020_backend.entity.ChangeCargoInfo;
 import com.pinxv.hackathon2020_backend.service.AdminUserService;
 import com.pinxv.hackathon2020_backend.util.QRCodeUtil;
 import com.pinxv.hackathon2020_backend.vo.ResponseVO;
+import com.pinxv.hackathon2020_backend.vo.UUIDPicVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.LoginUserVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.UserVO;
-import com.pinxv.hackathon2020_backend.vo.cargo.CargoBatchVO;
-import com.pinxv.hackathon2020_backend.vo.cargo.CargoVO;
-import com.pinxv.hackathon2020_backend.vo.cargo.ChangeCargoInfoVO;
+import com.pinxv.hackathon2020_backend.vo.cargo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>description: </p>
@@ -75,7 +73,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             BeanUtils.copyProperties(changeCargoInfoVO, cargo);
             String suffix = Integer.toHexString(i);
             int len = suffix.length();
-            for (int j = 0; j < 16 - len; i++) {
+            for (int j = 0; j < 16 - len; j++) {
                 suffix = "0" + suffix;
             }
             cargo.setSerialNumber(batchNumber + suffix);
@@ -91,4 +89,43 @@ public class AdminUserServiceImpl implements AdminUserService {
         return ResponseVO.buildSuccess();
     }
 
+    @Override
+    public ResponseVO getDetails(UUIDPicVO uuidPicVO) {
+        String UUID = QRCodeUtil.decodeQRCode(uuidPicVO.getBase64());
+        if(UUID==null){
+            return ResponseVO.buildFailure("查询失败，请检查UUID是否存在");
+        }
+        List<ChangeCargoInfo> changeCargoInfoList = changeCargoInfoMapper.findAllByBatchNumber(UUID);
+        if(changeCargoInfoList.size()==0){
+            return ResponseVO.buildFailure("查询失败，没有匹配的UUID，请确认二维码清晰有效");
+        }
+        else{
+            Collections.sort(changeCargoInfoList);
+            List<ChangeCargoPlaceVO> changeCargoPlaceVOList = new ArrayList<>();
+            for(ChangeCargoInfo changeCargoInfo:changeCargoInfoList ){
+                changeCargoPlaceVOList.add(new ChangeCargoPlaceVO(changeCargoInfo));
+            }
+            String description = changeCargoInfoList.get(0).getDescription();
+            CargoChangeDetailsVO cargoChangeDetailsVO = new CargoChangeDetailsVO(UUID,description,changeCargoPlaceVOList);
+            return ResponseVO.buildSuccess(cargoChangeDetailsVO);
+        }
+    }
+
+    @Override
+    public ResponseVO getUUID(UUIDPicVO uuidPicVO) {
+        String UUID = QRCodeUtil.decodeQRCode(uuidPicVO.getBase64());
+        if(UUID==null){
+            return ResponseVO.buildFailure("查询失败，请检查UUID是否存在");
+        }
+        List<CargoBatch> cargoBatchList = cargoBatchMapper.findByBatchNumber(UUID);
+        if(cargoBatchList.size()==0){
+            return ResponseVO.buildFailure("查询失败，请检查UUID是否存在");
+        }
+        else{
+            CargoBatch cargoBatch = cargoBatchList.get(0);
+            CargoBatchVO cargoBatchVO = new CargoBatchVO();
+            BeanUtils.copyProperties(cargoBatch,cargoBatchVO);
+            return ResponseVO.buildSuccess(cargoBatchVO);
+        }
+    }
 }

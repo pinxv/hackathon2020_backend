@@ -37,7 +37,7 @@ public class GeographicalPositionUtil {
             latitude = Float.parseFloat(loc[1]);
             adCode = queryInfoObj.getStr("adcode");
         } catch (Exception e) {
-            return null;
+            return new PositionInfoVO(locationName,null,null,null);
         }
         return new PositionInfoVO(locationName, longitude, latitude, adCode);
     }
