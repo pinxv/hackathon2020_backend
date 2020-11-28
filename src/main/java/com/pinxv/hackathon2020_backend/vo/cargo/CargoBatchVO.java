@@ -16,4 +16,6 @@ public class CargoBatchVO {
 
     private String creator;
 
+    private Boolean isSafe;
+
 }
