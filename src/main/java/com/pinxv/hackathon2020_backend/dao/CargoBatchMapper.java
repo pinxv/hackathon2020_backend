@@ -1,6 +1,7 @@
 package com.pinxv.hackathon2020_backend.dao;
 
 import com.pinxv.hackathon2020_backend.entity.CargoBatch;
+import org.apache.xpath.operations.Bool;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -25,5 +26,7 @@ public interface CargoBatchMapper extends CrudRepository<CargoBatch, Integer> {
      * @return cargo batch list
      */
     List<CargoBatch> findByCreator(String creator);
+
+    Integer countByIsSafeEquals(Boolean isSafeEquals);
 
 }
