@@ -18,9 +18,10 @@ public class GeographicalPositionUtil {
      * @param locationName 地理位置全称 例：北京市朝阳区阜通东大街6号
      * @return PositionInfoVO对象
      */
-    public static PositionInfoVO getLatitudeAndLongitude(String locationName){
+    public static PositionInfoVO getPositionInfo(String locationName){
         Float longitude;
         Float latitude;
+        String adCode;
         //完成请求
         try{
             String url = "https://restapi.amap.com/v3/geocode/geo";
@@ -33,15 +34,16 @@ public class GeographicalPositionUtil {
             String[] loc = queryInfoObj.getStr("location").split(",");
             longitude = Float.parseFloat(loc[0]);
             latitude = Float.parseFloat(loc[1]);
+            adCode = qureydInfoObj.getStr("adcode");
         }
         catch (Exception e){
             return null;
         }
-        return new PositionInfoVO(locationName, longitude,latitude);
+        return new PositionInfoVO(locationName, longitude,latitude,adCode);
     }
 
     public static void main(String[] args) {
-        System.out.println(getLatitudeAndLongitude("河北省衡水市"));
+        System.out.println(getPositionInfo("河北省衡水市"));
     }
 
 }
