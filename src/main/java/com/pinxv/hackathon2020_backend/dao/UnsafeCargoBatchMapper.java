@@ -11,5 +11,5 @@ import java.util.List;
  * @date 2020/11/29
  */
 public interface UnsafeCargoBatchMapper extends CrudRepository<UnsafeCargoBatch, Integer> {
-    List<UnsafeCargoBatch> findAllByCargoBatchId(Integer cargoBatchId);
+    List<UnsafeCargoBatch> findAllByBatchNum(String batchNum);
 }
