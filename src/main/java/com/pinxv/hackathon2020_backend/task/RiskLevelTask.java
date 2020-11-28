@@ -29,6 +29,11 @@ public class RiskLevelTask {
         this.highRiskAreaMapper = highRiskAreaMapper;
     }
 
+    @Scheduled(cron = "45 13 0 * * *")
+    public void temp() {
+        this.executeRiskLevelCrawler();
+    }
+
     @Scheduled(cron = "0 0 3 * * *")
     public void executeRiskLevelCrawler() {
         List<Pair<String, Integer>> riskLevels = RiskLevelCrawler.crawl();

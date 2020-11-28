@@ -78,7 +78,7 @@ public class RiskLevelCrawler extends Crawler {
                         }
                     }
                 }
-            } catch (ElementClickInterceptedException | InterruptedException e) {
+            } catch (ElementClickInterceptedException | IndexOutOfBoundsException | InterruptedException e) {
                 driver.close();
                 return crawl(i, j);
             }
@@ -143,7 +143,7 @@ public class RiskLevelCrawler extends Crawler {
                         }
                     }
                 }
-            } catch (ElementClickInterceptedException | InterruptedException e) {
+            } catch (ElementClickInterceptedException | IndexOutOfBoundsException | InterruptedException e) {
                 driver.close();
                 return crawl(ii, jj);
             }

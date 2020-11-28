@@ -2,6 +2,7 @@ package com.pinxv.hackathon2020_backend.service.serviceimpl;
 
 import com.pinxv.hackathon2020_backend.dao.AdminUserMapper;
 import com.pinxv.hackathon2020_backend.dao.CargoBatchMapper;
+import com.pinxv.hackathon2020_backend.dao.CargoMapper;
 import com.pinxv.hackathon2020_backend.dao.ChangeCargoInfoMapper;
 import com.pinxv.hackathon2020_backend.entity.AdminUser;
 import com.pinxv.hackathon2020_backend.entity.Cargo;
@@ -19,6 +20,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -40,10 +43,14 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Autowired
     private final ChangeCargoInfoMapper changeCargoInfoMapper;
 
-    public AdminUserServiceImpl(AdminUserMapper adminUserMapper, CargoBatchMapper cargoBatchMapper, ChangeCargoInfoMapper changeCargoInfoMapper) {
+    @Autowired
+    private final CargoMapper cargoMapper;
+
+    public AdminUserServiceImpl(AdminUserMapper adminUserMapper, CargoBatchMapper cargoBatchMapper, ChangeCargoInfoMapper changeCargoInfoMapper, CargoMapper cargoMapper) {
         this.adminUserMapper = adminUserMapper;
         this.cargoBatchMapper = cargoBatchMapper;
         this.changeCargoInfoMapper = changeCargoInfoMapper;
+        this.cargoMapper = cargoMapper;
     }
 
     @Override
@@ -62,6 +69,10 @@ public class AdminUserServiceImpl implements AdminUserService {
     public ResponseVO importCargoBatch(ChangeCargoInfoVO changeCargoInfoVO) {
         String batchNumber = String.valueOf(UUID.randomUUID());
         changeCargoInfoVO.setBatchNumber(batchNumber);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = df.format(new Date());
+        Timestamp ts = Timestamp.valueOf(time);
+        changeCargoInfoVO.setTimestamp(ts);
         ChangeCargoInfo changeCargoInfo = new ChangeCargoInfo();
         BeanUtils.copyProperties(changeCargoInfoVO, changeCargoInfo);
         this.changeCargoInfoMapper.save(changeCargoInfo);
@@ -78,12 +89,17 @@ public class AdminUserServiceImpl implements AdminUserService {
                 suffix = "0" + suffix;
             }
             cargo.setSerialNumber(batchNumber + suffix);
+            this.cargoMapper.save(cargo);
         }
         return ResponseVO.buildSuccess(base64);
     }
 
     @Override
     public ResponseVO changeCargoBatchInfoConfirm(ChangeCargoInfoVO changeCargoInfoVO) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = df.format(new Date());
+        Timestamp ts = Timestamp.valueOf(time);
+        changeCargoInfoVO.setTimestamp(ts);
         ChangeCargoInfo changeCargoInfo = new ChangeCargoInfo();
         BeanUtils.copyProperties(changeCargoInfoVO, changeCargoInfo);
         this.changeCargoInfoMapper.save(changeCargoInfo);
@@ -93,21 +109,20 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public ResponseVO getDetails(UUIDPicVO uuidPicVO) {
         String UUID = QRCodeUtil.decodeQRCode(uuidPicVO.getBase64());
-        if(UUID==null){
+        if (UUID == null) {
             return ResponseVO.buildFailure("查询失败，请检查UUID是否存在");
         }
         List<ChangeCargoInfo> changeCargoInfoList = changeCargoInfoMapper.findAllByBatchNumber(UUID);
-        if(changeCargoInfoList.size()==0){
+        if (changeCargoInfoList.isEmpty()) {
             return ResponseVO.buildFailure("查询失败，没有匹配的UUID，请确认二维码清晰有效");
-        }
-        else{
+        } else {
             Collections.sort(changeCargoInfoList);
             List<ChangeCargoPlaceVO> changeCargoPlaceVOList = new ArrayList<>();
-            for(ChangeCargoInfo changeCargoInfo:changeCargoInfoList ){
+            for (ChangeCargoInfo changeCargoInfo : changeCargoInfoList) {
                 changeCargoPlaceVOList.add(new ChangeCargoPlaceVO(changeCargoInfo));
             }
             String description = changeCargoInfoList.get(0).getDescription();
-            CargoChangeDetailsVO cargoChangeDetailsVO = new CargoChangeDetailsVO(UUID,description,changeCargoPlaceVOList);
+            CargoChangeDetailsVO cargoChangeDetailsVO = new CargoChangeDetailsVO(UUID, description, changeCargoPlaceVOList);
             return ResponseVO.buildSuccess(cargoChangeDetailsVO);
         }
     }
@@ -115,17 +130,16 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public ResponseVO getUUID(UUIDPicVO uuidPicVO) {
         String UUID = QRCodeUtil.decodeQRCode(uuidPicVO.getBase64());
-        if(UUID==null){
+        if (UUID == null) {
             return ResponseVO.buildFailure("查询失败，请检查UUID是否存在");
         }
         List<CargoBatch> cargoBatchList = cargoBatchMapper.findByBatchNumber(UUID);
-        if(cargoBatchList.size()==0){
+        if (cargoBatchList.isEmpty()) {
             return ResponseVO.buildFailure("查询失败，请检查UUID是否存在");
-        }
-        else{
+        } else {
             CargoBatch cargoBatch = cargoBatchList.get(0);
             CargoBatchVO cargoBatchVO = new CargoBatchVO();
-            BeanUtils.copyProperties(cargoBatch,cargoBatchVO);
+            BeanUtils.copyProperties(cargoBatch, cargoBatchVO);
             return ResponseVO.buildSuccess(cargoBatchVO);
         }
     }
