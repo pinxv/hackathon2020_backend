@@ -148,10 +148,27 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (cargoBatchList.isEmpty()) {
             return ResponseVO.buildFailure("查询失败，请检查UUID是否存在");
         } else {
-            CargoBatch cargoBatch = cargoBatchList.get(0);
-            CargoBatchVO cargoBatchVO = new CargoBatchVO();
-            BeanUtils.copyProperties(cargoBatch, cargoBatchVO);
-            return ResponseVO.buildSuccess(cargoBatchVO);
+            List<ChangeCargoInfo> changeCargoInfoList = changeCargoInfoMapper.findAllByBatchNumber(UUID);
+            if (changeCargoInfoList.isEmpty()) {
+                return ResponseVO.buildFailure("查询失败，没有匹配的UUID，请确认二维码清晰有效");
+            } else {
+                Collections.sort(changeCargoInfoList);
+                List<ChangeCargoPlaceVO> changeCargoPlaceVOList = new ArrayList<>();
+                for (ChangeCargoInfo changeCargoInfo : changeCargoInfoList) {
+                    changeCargoPlaceVOList.add(new ChangeCargoPlaceVO(changeCargoInfo));
+                }
+                String description = changeCargoInfoList.get(0).getDescription();
+                List<UnsafeInfoVO> unsafeInfoVOList = new ArrayList<>();
+                List<UnsafeCargoBatch> unsafeCargoBatchList = unsafeCargoBatchMapper.findAllByBatchNum(UUID);
+                for(UnsafeCargoBatch unsafeCargoBatch:unsafeCargoBatchList){
+                    UnsafeInfoVO unsafeInfoVO = new UnsafeInfoVO();
+                    unsafeInfoVO.setActualLoc(unsafeCargoBatch.getActualPlace());
+                    unsafeInfoVO.setUnsafeLoc(unsafeCargoBatch.getHighRiskPlace());
+                    unsafeInfoVOList.add(unsafeInfoVO);
+                }
+                CargoChangeDetailsVO cargoChangeDetailsVO = new CargoChangeDetailsVO(UUID, description, changeCargoPlaceVOList,unsafeInfoVOList);
+                return ResponseVO.buildSuccess(cargoChangeDetailsVO);
+            }
         }
     }
 
