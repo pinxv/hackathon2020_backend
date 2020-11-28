@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * <p>description: </p>
  *
+ * @author fengguohao
  * @date 2020/11/28
  */
 @RestController
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminUserController {
 
     @PostMapping("/login")
-    public ResponseVO login(@RequestBody LoginUserVO loginUserVO){
+    public ResponseVO login(@RequestBody LoginUserVO loginUserVO) {
         return null;
     }
+
 }
