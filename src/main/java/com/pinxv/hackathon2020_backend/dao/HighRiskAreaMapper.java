@@ -18,4 +18,11 @@ public interface HighRiskAreaMapper extends CrudRepository<HighRiskArea, Integer
      */
     List<HighRiskArea> findByRiskLevel(Integer riskLevel);
 
+    /**
+     * find area by area name
+     * @param areaName area name
+     * @return area list, should has 0 or 1 size
+     */
+    List<HighRiskArea> findByArea(String areaName);
+
 }

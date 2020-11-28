@@ -48,8 +48,4 @@ public class HighRiskArea implements Serializable {
     @Column(name = "adcode")
     private String adcode;
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
-    private RiskLevel riskLevelEntity;
-
 }

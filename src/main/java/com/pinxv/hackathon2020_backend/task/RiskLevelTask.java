@@ -36,7 +36,13 @@ public class RiskLevelTask {
             positionInfoVOs.add(GeographicalPositionUtil.getPositionInfo(riskLevel.getFirst()));
         }
         for (int i = 0; i < positionInfoVOs.size(); i++) {
-            HighRiskArea highRiskArea = new HighRiskArea();
+            List<HighRiskArea> highRiskAreas = this.highRiskAreaMapper.findByArea(positionInfoVOs.get(i).getPositionName());
+            HighRiskArea highRiskArea;
+            if (highRiskAreas.isEmpty()) {
+                highRiskArea = new HighRiskArea();
+            } else {
+                highRiskArea = highRiskAreas.get(0);
+            }
             highRiskArea.setArea(positionInfoVOs.get(i).getPositionName());
             highRiskArea.setAdcode(positionInfoVOs.get(i).getAdcode());
             highRiskArea.setLatitude(positionInfoVOs.get(i).getLatitude());
