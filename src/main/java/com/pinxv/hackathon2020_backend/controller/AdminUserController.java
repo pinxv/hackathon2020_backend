@@ -39,9 +39,9 @@ public class AdminUserController {
         return this.adminUserService.getDetails(uuidPicVO);
     }
 
-    @PostMapping("/changeCargoBatchInfo")
-    public ResponseVO changeCargoBatchInfo(@RequestBody ChangeCargoInfoVO changeCargoInfoVO) {
-        return this.adminUserService.changeCargoBatchInfo(changeCargoInfoVO);
+    @PostMapping("/changeCargoBatchInfoConfirm")
+    public ResponseVO changeCargoBatchInfoConfirm(@RequestBody ChangeCargoInfoVO changeCargoInfoVO) {
+        return this.adminUserService.changeCargoBatchInfoConfirm(changeCargoInfoVO);
     }
 
     @PostMapping("/getUUID")

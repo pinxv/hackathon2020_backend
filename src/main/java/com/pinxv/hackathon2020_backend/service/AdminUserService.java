@@ -16,7 +16,7 @@ public interface AdminUserService {
 
     ResponseVO importCargoBatch(ChangeCargoInfoVO changeCargoInfoVO);
 
-    ResponseVO changeCargoBatchInfo(ChangeCargoInfoVO changeCargoInfoVO);
+    ResponseVO changeCargoBatchInfoConfirm(ChangeCargoInfoVO changeCargoInfoVO);
 
     ResponseVO getDetails(UUIDPicVO uuidPicVO);
 
