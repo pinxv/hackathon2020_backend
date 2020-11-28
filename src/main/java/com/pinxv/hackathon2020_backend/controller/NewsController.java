@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * <p>description: </p>
  *
+ * @author fengguohao
  * @date 2020/11/28
  */
 @RestController
@@ -18,15 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class NewsController {
 
     @Autowired
-    NewsService newsService;
+    private final NewsService newsService;
+
+    public NewsController(NewsService newsService) {
+        this.newsService = newsService;
+    }
 
     @GetMapping("")
-    public ResponseVO getNews(int highRiskAreaId){
+    public ResponseVO getNews(int highRiskAreaId) {
         return newsService.getNews(highRiskAreaId);
     }
 
     @PostMapping("/flush")
-    public ResponseVO flushNews(){
+    public ResponseVO flushNews() {
         return newsService.flushNews();
     }
+
 }

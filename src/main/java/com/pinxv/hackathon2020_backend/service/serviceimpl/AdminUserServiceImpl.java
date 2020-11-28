@@ -24,7 +24,11 @@ public class AdminUserServiceImpl implements AdminUserService {
     private static final String LOGIN_SUCCESS = "登录成功";
 
     @Autowired
-    AdminUserMapper adminUserMapper;
+    private AdminUserMapper adminUserMapper;
+
+    public AdminUserServiceImpl(AdminUserMapper adminUserMapper) {
+        this.adminUserMapper = adminUserMapper;
+    }
 
     @Override
     public ResponseVO login(LoginUserVO loginUserVO) {

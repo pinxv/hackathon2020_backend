@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * <p>description:用户管理接口 </p>
  *
+ * @author fengguohao
  * @date 2020/11/28
  */
 @RestController
@@ -22,8 +23,8 @@ public class AdminUserController {
     AdminUserService adminUserService;
 
     @PostMapping("/login")
-    public ResponseVO login(@RequestBody LoginUserVO loginUserVO){
-        return adminUserService.login(loginUserVO);
+    public ResponseVO login(@RequestBody LoginUserVO loginUserVO) {
+        return this.adminUserService.login(loginUserVO);
     }
 
 }
