@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class NewsCrawler extends Crawler {
 
-    private static String urlbase = "https://www.baidu.com/s?tn=news&word=";
+    private static String urlBase = "https://www.baidu.com/s?tn=news&word=";
 
     public static List<NewsVO> crawl(String keyword) {
         driver = new ChromeDriver();
         List<NewsVO> newsVOS = new ArrayList<>();
-        String realURL = urlbase + URLUtil.encode(keyword);
+        String realURL = urlBase + URLUtil.encode(keyword);
         driver.get(realURL);
         List<WebElement> newsDescription = driver.findElements(By.xpath("//div[@class='result-op c-container xpath-log new-pmd']//span[@class='c-font-normal c-color-text']"));
         List<WebElement> newsTitle = driver.findElements(By.xpath("//div[@class='result-op c-container xpath-log new-pmd']//h3//a"));
