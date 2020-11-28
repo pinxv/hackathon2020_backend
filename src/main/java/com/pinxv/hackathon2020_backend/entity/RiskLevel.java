@@ -7,12 +7,15 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author fengguohao
+ */
 @Entity
 @Data
 @Table(schema = "pinxv", name = "RiskLevel")
 public class RiskLevel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -2472247564586988692L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +45,5 @@ public class RiskLevel implements Serializable {
 
     @Column(name = "riskLevel")
     private Integer riskLevel;
-
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "riskLevelEntity")
-    @JoinColumn(name = "riskLevelId")
-    private List<HighRiskArea> highRiskAreaList;
 
 }
