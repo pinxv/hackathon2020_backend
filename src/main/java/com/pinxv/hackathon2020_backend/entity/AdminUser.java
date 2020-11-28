@@ -23,7 +23,4 @@ public class AdminUser implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "accesscode")
-    private String accesscode;
-
 }

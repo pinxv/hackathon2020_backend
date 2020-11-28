@@ -6,6 +6,7 @@ import com.pinxv.hackathon2020_backend.enums.StatusCode;
 import com.pinxv.hackathon2020_backend.service.AdminUserService;
 import com.pinxv.hackathon2020_backend.vo.ResponseVO;
 import com.pinxv.hackathon2020_backend.vo.adminuser.LoginUserVO;
+import com.pinxv.hackathon2020_backend.vo.adminuser.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class AdminUserServiceImpl implements AdminUserService {
 
     private static final String LOGIN_FAILURE = "登录失败";
+    private static final String LOGIN_SUCCESS = "登录成功";
 
     @Autowired
     AdminUserMapper adminUserMapper;
@@ -30,7 +32,13 @@ public class AdminUserServiceImpl implements AdminUserService {
         if( adminUserList.size()!=1 ){
             return ResponseVO.buildFailure(LOGIN_FAILURE);
         }
-
-        return null;
+        AdminUser adminUser = adminUserList.get(0);
+        if( !loginUserVO.getPassword().equals(adminUser.getPassword()) ){
+            return ResponseVO.buildFailure(LOGIN_FAILURE);
+        }
+        UserVO userVO = new UserVO();
+        userVO.setId(adminUser.getId());
+        userVO.setUsername(adminUser.getUsername());
+        return ResponseVO.buildSuccess(LOGIN_SUCCESS,userVO);
     }
 }
