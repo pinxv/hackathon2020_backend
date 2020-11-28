@@ -1,15 +1,11 @@
 package com.pinxv.hackathon2020_backend.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 
 import lombok.Data;
 
 import java.io.Serializable;
-import javax.persistence.Id;
+import java.util.List;
 
 /**
  * @author fengguohao

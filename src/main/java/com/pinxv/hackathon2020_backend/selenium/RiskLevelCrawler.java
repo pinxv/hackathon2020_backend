@@ -48,6 +48,11 @@ public class RiskLevelCrawler extends Crawler {
                         // TODO update database
                     } else {
                         // TODO traverse table
+                        List<WebElement> highRiskAreas = DRIVER.findElements(By.xpath("//div[@class='risk-table']/tbody/tr/td"));
+                        for(int highRiskIter=0; highRiskIter<highRiskAreas.size(); highRiskIter+=2){
+                            String areaName = highRiskAreas.get(highRiskIter).getText();
+                            String riskLevel = highRiskAreas.get(highRiskIter+1).getText();
+                        }
                     }
                 }
             }
