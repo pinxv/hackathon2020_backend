@@ -16,6 +16,7 @@ public class CargoBatch {
     private String creator;
     private String destination;
     private Boolean isSafe;
+    private String place;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,6 +89,16 @@ public class CargoBatch {
         this.isSafe = isSafe;
     }
 
+    @Basic
+    @Column(name = "place")
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -103,11 +114,13 @@ public class CargoBatch {
                 Objects.equals(description, that.description) &&
                 Objects.equals(creator, that.creator) &&
                 Objects.equals(destination, that.destination) &&
-                Objects.equals(isSafe, that.isSafe);
+                Objects.equals(isSafe, that.isSafe) &&
+                Objects.equals(place, that.place);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, batchNumber, description, sum, creator, destination, isSafe);
+        return Objects.hash(id, batchNumber, description, sum, creator, destination, isSafe, place);
     }
+
 }

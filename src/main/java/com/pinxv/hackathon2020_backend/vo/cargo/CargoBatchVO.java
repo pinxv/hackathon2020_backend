@@ -20,4 +20,6 @@ public class CargoBatchVO {
 
     private String destination;
 
+    private String place;
+
 }
