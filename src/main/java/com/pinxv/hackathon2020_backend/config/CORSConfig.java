@@ -12,7 +12,7 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class CORSConfig {
 
-    private static String[] originsVal = new String[2000];
+    private static String[] originsVal = new String[2000 + 1];
 
     @Bean
     public CorsFilter corsFilter() {
@@ -20,6 +20,7 @@ public class CORSConfig {
             originsVal[i] = "localhost:" + (i / 2 + 8000);
             originsVal[i + 1] = "127.0.0.1:" + (i / 2 + 8000);
         }
+        originsVal[2000] = "fguohao.top";
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         addAllowedOrigins(corsConfiguration);
