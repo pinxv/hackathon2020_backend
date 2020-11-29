@@ -2,6 +2,8 @@
 
 ![冯虚御风标题](https://www.fguohao.top/pinxv.png)
 
+# 强烈建议大家移步我们的前端项目查看文档！！！！[https://github.com/pinxv/hackathon2020_frontend]
+
 ## 前言
 
 2020年注定是不平凡的一年，新冠肆虐之下，我们团结协作，用智慧与勇气，在同疫情的斗争过程中取得了阶段性胜利。
