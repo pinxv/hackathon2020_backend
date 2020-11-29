@@ -10,7 +10,7 @@
 
 ## 项目文档
 
-API文档[]
+API文档[https://github.com/pinxv/hackathon2020_backend/blob/main/backend_API.pdf]
 
 ## 项目介绍
 
