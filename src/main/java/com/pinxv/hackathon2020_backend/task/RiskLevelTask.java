@@ -1,5 +1,6 @@
 package com.pinxv.hackathon2020_backend.task;
 
+import cn.hutool.core.util.RuntimeUtil;
 import com.pinxv.hackathon2020_backend.dao.HighRiskAreaMapper;
 import com.pinxv.hackathon2020_backend.entity.HighRiskArea;
 import com.pinxv.hackathon2020_backend.selenium.RiskLevelCrawler;
@@ -51,6 +52,7 @@ public class RiskLevelTask {
             highRiskArea.setRiskLevel(riskLevels.get(i).getSecond());
             this.highRiskAreaMapper.save(highRiskArea);
         }
+        RuntimeUtil.exec("killall chromedriver");
     }
 
 }
