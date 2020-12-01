@@ -49,7 +49,13 @@ public class GeographicalPositionUtil {
     public static double getDistance(String location1, String location2) {
         PositionInfoVO pos1 = getPositionInfo(location1);
         PositionInfoVO pos2 = getPositionInfo(location2);
-        double distance = getDistance(pos1.getLatitude(), pos1.getLongitude(), pos2.getLatitude(), pos2.getLongitude());
+        double distance = Double.NaN;
+        try{
+            distance = getDistance(pos1.getLatitude(), pos1.getLongitude(), pos2.getLatitude(), pos2.getLongitude());
+        }
+        catch (Exception e){
+
+        }
         return distance;
     }
 
