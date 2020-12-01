@@ -23,6 +23,7 @@ public class NewsCrawler extends Crawler {
         try {
             driver = new ChromeDriver();
         } catch (Exception e) {
+            e.printStackTrace();
             System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
             ChromeOptions chromeOptions = new ChromeOptions();
             // 设置为 headless 模式 （无头浏览器）
@@ -42,7 +43,12 @@ public class NewsCrawler extends Crawler {
             newsVOS.add(newsVO);
         }
         driver.close();
+        driver.quit();
         return newsVOS;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(crawl("河北"));
     }
 
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.data.util.Pair;
 
 import java.util.ArrayList;
@@ -23,12 +24,21 @@ public class RiskLevelCrawler extends Crawler {
 
     public static List<Pair<String, Integer>> crawl() {
         res.clear();
-        driver = new ChromeDriver();
+        try {
+            driver = new ChromeDriver();
+        } catch (Exception e) {
+            System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
+            ChromeOptions chromeOptions = new ChromeOptions();
+            // 设置为 headless 模式 （无头浏览器）
+            chromeOptions.addArguments("--headless","--no-sandbox","--disable-gpu","--disable-dev-shm-usage");
+            driver = new ChromeDriver(chromeOptions);
+        }
         driver.get("http://bmfw.www.gov.cn/yqfxdjcx/index.html");
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             driver.close();
+            driver.quit();
             return crawl();
         }
         List<WebElement> provinces = driver.findElements(By.xpath("//ul[@class='province']/li"));
@@ -36,6 +46,7 @@ public class RiskLevelCrawler extends Crawler {
         List<WebElement> blocks;
         if (provinces.isEmpty()) {
             driver.close();
+            driver.quit();
             return crawl();
         }
         int i;
@@ -80,20 +91,32 @@ public class RiskLevelCrawler extends Crawler {
                 }
             } catch (ElementClickInterceptedException | IndexOutOfBoundsException | InterruptedException e) {
                 driver.close();
+                driver.quit();
                 return crawl(i, j);
             }
         }
         driver.close();
+        driver.quit();
         return res;
     }
 
     private static List<Pair<String, Integer>> crawl(int i, int j) {
-        driver = new ChromeDriver();
+        try {
+            driver = new ChromeDriver();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
+            ChromeOptions chromeOptions = new ChromeOptions();
+            // 设置为 headless 模式 （无头浏览器）
+            chromeOptions.addArguments("--headless","--no-sandbox","--disable-gpu","--disable-dev-shm-usage");
+            driver = new ChromeDriver(chromeOptions);
+        }
         driver.get("http://bmfw.www.gov.cn/yqfxdjcx/index.html");
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             driver.close();
+            driver.quit();
             return crawl(i, j);
         }
         List<WebElement> provinces = driver.findElements(By.xpath("//ul[@class='province']/li"));
@@ -101,6 +124,7 @@ public class RiskLevelCrawler extends Crawler {
         List<WebElement> blocks;
         if (provinces.isEmpty()) {
             driver.close();
+            driver.quit();
             return crawl(i, j);
         }
         int ii;
@@ -146,10 +170,12 @@ public class RiskLevelCrawler extends Crawler {
                 }
             } catch (ElementClickInterceptedException | IndexOutOfBoundsException | InterruptedException e) {
                 driver.close();
+                driver.quit();
                 return crawl(ii, jj);
             }
         }
         driver.close();
+        driver.quit();
         return res;
     }
 
