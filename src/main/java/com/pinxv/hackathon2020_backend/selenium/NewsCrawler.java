@@ -24,6 +24,9 @@ public class NewsCrawler extends Crawler {
             driver = new ChromeDriver();
         } catch (Exception e) {
             e.printStackTrace();
+            if(driver!=null){
+                driver.quit();
+            }
             System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
             ChromeOptions chromeOptions = new ChromeOptions();
             // 设置为 headless 模式 （无头浏览器）

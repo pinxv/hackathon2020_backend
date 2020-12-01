@@ -27,6 +27,9 @@ public class RiskLevelCrawler extends Crawler {
         try {
             driver = new ChromeDriver();
         } catch (Exception e) {
+            if(driver!=null){
+                driver.quit();
+            }
             System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
             ChromeOptions chromeOptions = new ChromeOptions();
             // 设置为 headless 模式 （无头浏览器）
@@ -104,6 +107,9 @@ public class RiskLevelCrawler extends Crawler {
         try {
             driver = new ChromeDriver();
         } catch (Exception e) {
+            if(driver!=null){
+                driver.quit();
+            }
             e.printStackTrace();
             System.setProperty("webdriver.chrome.driver","/opt/chromedriver");
             ChromeOptions chromeOptions = new ChromeOptions();
