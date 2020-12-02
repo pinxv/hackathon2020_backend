@@ -26,7 +26,7 @@ public class NewsTask {
     @Autowired
     HighRiskAreaMapper highRiskAreaMapper;
 
-    @Scheduled(cron = "0 0/15 * * * ?")
+    //@Scheduled(cron = "0 0/15 * * * ?")
     public void executeNewsCrawler() {
         List<HighRiskArea> highRiskAreas = (List<HighRiskArea>) highRiskAreaMapper.findAll();
         for (HighRiskArea highRiskArea : highRiskAreas) {
